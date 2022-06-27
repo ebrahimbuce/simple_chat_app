@@ -34,9 +34,7 @@ import ChatMessages from '../../components/ChatMessages/chat-messages.component'
 const styles = {
   container: {
     bg: '#0b141a',
-    height: '100vh',
-    display: 'flex',
-    flexDirection: 'column',
+    width: '100%',
   },
 };
 
@@ -77,20 +75,22 @@ const AppPage = () => {
     const getDocsRef = await getDocs(messageRef);
 
     getDocsRef.forEach((data: any) => {
-      const newDoc = doc(db_f, 'messages',data.id);
+      const newDoc = doc(db_f, 'messages', data.id);
 
       deleteDoc(newDoc);
-     
     });
   }
 
   return (
     <Box sx={styles.container}>
       <Box
-        width={500}
         margin='0 auto'
         bg='gray.700'
-        flex={1}
+        display='flex'
+        py={12}
+        minHeight='100vh'
+        maxWidth={500}
+        flexDirection='column'
         overflow='auto'
         position='relative'>
         <Stack
@@ -100,20 +100,33 @@ const AppPage = () => {
           p={2}
           px={4}
           flex={1}
+          maxWidth={500}
           bg='gray.800'
           zIndex='100'
           top={0}
-          width={500}
+          width='100%'
           position='fixed'>
           <Box display='flex' gap={3} alignItems='center'>
-            <Avatar
-              src={user?.photoURL || undefined}
-              name={user?.displayName ? user?.displayName : undefined}
-              width='40px'
-              height='40px'
-            />
+            {user?.photoURL && (
+              <img
+                width='40px'
+                height='40px'
+                style={{
+                  borderRadius: '50%',
+                }}
+                src={`${user?.photoURL}`}
+              />
+            )}
+            {!user?.photoURL && (
+              <Avatar
+                width='40px'
+                height='40px'
+                name={user?.displayName ? user?.displayName : undefined}
+              />
+            )}
+
             <Text fontSize='md' color='white'>
-              {user?.displayName ? user?.displayName : undefined}
+              {user?.displayName ? user?.displayName : 'Anonymous'}
             </Text>
           </Box>
           <Box>
@@ -146,11 +159,12 @@ const AppPage = () => {
             direction='row'
             p={2}
             px={4}
+            width='100%'
+            maxWidth={500}
             flex={1}
             bottom={0}
             bg='gray.800'
             zIndex='100'
-            width={500}
             position='fixed'>
             <Input
               name='message'

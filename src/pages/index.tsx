@@ -81,7 +81,9 @@ const Index = () => {
   }, [isAuthenticated]);
 
   return (
-    <Box>
+    <Box
+    bg='gray.900'
+    >
       <If isTrue={isAuthenticated === false}>
         <Box as='form' onSubmit={handleSubmit as any} sx={style}>
           <Stack width='72'>
@@ -127,7 +129,7 @@ const Index = () => {
             </Box>
 
             <Button type='submit' width='100%' isLoading={isLoading}>
-              {isRegistering ? 'Regístrate' : 'Iniciar Sesión'}
+              {isRegistering ? 'Sign up' : 'Log in'}
             </Button>
             <Divider />
             <Box>
@@ -135,14 +137,16 @@ const Index = () => {
                 onClick={() => singInWithGoogle()}
                 width='100%'
                 colorScheme='blue'>
-                Iniciar Sesión con Google
+                Log in with Google
               </Button>
 
               <Link onClick={() => setIsRegistering(!isRegistering)}>
-                <Text fontSize='sm' my={2} textAlign='left' color='gray.200'>
+                <Text fontSize='sm' my={2} textAlign='left'
+                color='white'
+                >
                   {isRegistering
-                    ? '¿Ya tienes una cuenta?'
-                    : '¿No tienes una cuenta?'}
+                    ? 'Do you already have an account?'
+                    : 'You do not have an account?'}
                 </Text>
               </Link>
             </Box>

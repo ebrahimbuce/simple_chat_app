@@ -4,9 +4,7 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import { BrowserRouter as Router } from 'react-router-dom';
 import theme from './components/Theme/theme';
-import { createTheme, ThemeProvider } from '@mui/material';
-
-const themeMui = createTheme();
+import './main.css'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

@@ -16,14 +16,7 @@ const ChatMessages = ({ messages }: any) => {
   }
 
   return (
-    <Box
-      display='flex'
-      flexDirection='column'
-      flex='1'
-      px={4}
-      bg='gray.900'
-      marginTop='3rem'
-      height='100%'>
+    <Box px={3}>
       {messages?.map((message: any, index: number) => (
         <Box
           key={index}
@@ -34,20 +27,35 @@ const ChatMessages = ({ messages }: any) => {
           }
           width='full'>
           <Box display='flex' alignItems='center' gap={2}>
-            <Avatar width='35px' height='35px' src={message?.photoURL} />
-            <Text
+            {message?.photoURL && (
+              <img
+                width='40px'
+                height='40px'
+                style={{
+                  borderRadius: '50%',
+                }}
+                src={`${message?.photoURL}`}
+              />
+            )}
+            {!message?.photoURL && (
+              <Avatar
+                width='40px'
+                height='40px'
+                name={message?.displayName ? message?.displayName : undefined}
+              />
+            )}
+
+            <Box
               fontWeight='bold'
               padding='7px'
               borderRadius='8px'
-              bg='#0b141a'>
-                <Text fontSize='xs' color='gray.500'>
-                 {message.userId === user?.uid && 'Tú'}
-                </Text>
-              {message.text}
-              <Text fontSize='xs' color='gray.500'>
-                {formatTimeMessage(message.createdAt)}
+              bg='gray.800'>
+              <Text fontSize='xs'>
+                {message.userId === user?.uid ? 'Tú' : message.displayName}
               </Text>
-            </Text>
+              {message.text}
+              <Text fontSize='xs'>{formatTimeMessage(message.createdAt)}</Text>
+            </Box>
           </Box>
         </Box>
       ))}
